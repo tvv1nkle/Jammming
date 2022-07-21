@@ -1,10 +1,17 @@
 import React, { Component } from "react";
 
 //import Playlist.css
+import './Playlist.css';
 
 class Playlist extends Component {
   render() {
-    return <div>Playlist</div>;
+    return (
+      <div class="Playlist">
+        <input defaultValue={"New Playlist"} />
+        {/* <TrackList /> */}
+        <button class="Playlist-save">SAVE TO SPOTIFY</button>
+      </div>
+    )
   }
 }
 
