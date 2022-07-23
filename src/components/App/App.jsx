@@ -13,30 +13,60 @@ class App extends Component {
     super(props)
     this.state = {
       searchResults: [{
-        name: '',
-        artist: '',
-        album: '',
-        id: ''
-      }],
+        name: 'name1',
+        artist: 'artist1',
+        album: 'album1',
+        id: 'id1'
+      },
+      {
+        name: 'name2',
+        artist: 'artist2',
+        album: 'album2',
+        id: 'id2'
+      },
+      {
+        name: 'name3',
+        artist: 'artist3',
+        album: 'album3',
+        id: 'id3'
+      },
+      ],
       playlistName: '',
       playlistTracks: [{
-        name: '',
-        artist: '',
-        album: '',
-        id: ''
-      }]
+        name: 'name1',
+        artist: 'artist1',
+        album: 'album1',
+        id: 'id1'
+      },
+      {
+        name: 'name2',
+        artist: 'artist2',
+        album: 'album2',
+        id: 'id2'
+      },]
+    }
+    this.addTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
+  }
 
+  addTrack(track) {
+    if (this.state.playlistTracks.find((savedTrack) => savedTrack.id === track.id)) {
+      return alert("Track already exists");
+    } else {
+      this.setState({
+        playlistTracks: [
+          ...this.state.playlistTracks, track
+        ]
+      })
     }
   }
 
-   addTrack (track) {
-      if (this.state.playlistTracks.find((savedTrack) => savedTrack.id === track.id)) {
-        return alert("Track already exists");
-      } else {
-        this.state( )
-      }
-    };
+  removeTrack(track) {
+    this.setState({
+      playlistTracks: this.state.playlistTracks.filter((savedTrack) => savedTrack.id !== track.id)
+    })
   }
+
   render() {
     return (
       <div>
@@ -46,13 +76,16 @@ class App extends Component {
         <div className="App">
           <SearchBar />
           <div className="App-playlist">
-            <SearchResults searchResults={this.state.searchResults} />
-            <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} />
+            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
+            <Playlist
+              playlistName={this.state.playlistName}
+              playlistTracks={this.state.playlistTracks}
+              onRemove={this.removeTrack}
+            />
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
-
 export default App;
